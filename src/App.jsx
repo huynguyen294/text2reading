@@ -132,9 +132,9 @@ export default function App() {
   };
 
   return (
-    <main className="h-[100dvh] w-fit container mx-auto max-w-7xl p-2 sm:p-6 mt-10">
+    <main className="h-[100dvh] w-fit container mx-auto max-w-7xl p-2 sm:p-6 mt-16">
       <Toaster />
-      <article>
+      <article lang="vi" role="article" aria-live="polite" aria-relevant="all">
         {data.content.map((line, index) =>
           !line ? <br key={index} /> : <ToggleableLine key={index} index={index} line={line} />,
         )}
