@@ -57,7 +57,7 @@ export default function App() {
 
   if (!data)
     return (
-      <div className="bg-gray-400 h-[100dvh] w-[100dvw] flex items-center justify-center p-2 sm:p-6 select-none">
+      <main className="bg-gray-400 h-[100dvh] w-[100dvw] flex items-center justify-center p-2 sm:p-6 select-none">
         <div
           {...getRootProps()}
           className={`w-full h-full border-4 border-dashed rounded-3xl flex flex-col justify-center items-center text-center cursor-pointer transition-all duration-300 relative
@@ -81,7 +81,7 @@ export default function App() {
             </div>
           </div>
         </div>
-      </div>
+      </main>
     );
 
   const ToggleableLine = ({ line, index }) => {
@@ -132,31 +132,33 @@ export default function App() {
   };
 
   return (
-    <div className="h-[100dvh] w-fit container mx-auto max-w-7xl p-2 sm:p-6 mt-6">
+    <main className="h-[100dvh] w-fit container mx-auto max-w-7xl p-2 sm:p-6 mt-6">
       <Toaster />
-      {data.content.map((line, index) =>
-        !line ? <br key={index} /> : <ToggleableLine key={index} index={index} line={line} />,
-      )}
-      {data.bookmark && (
-        <Button size="lg" className="fixed bottom-8 right-8 size-12 [&_svg]:size-7" asChild>
-          <a href={`#line-${data.bookmark}`}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="size-7"
-            >
-              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-            </svg>
-          </a>
-        </Button>
-      )}
-    </div>
+      <article>
+        {data.content.map((line, index) =>
+          !line ? <br key={index} /> : <ToggleableLine key={index} index={index} line={line} />,
+        )}
+        {data.bookmark && (
+          <Button size="lg" className="fixed bottom-8 right-8 size-12 [&_svg]:size-7" asChild>
+            <a href={`#line-${data.bookmark}`}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="size-7"
+              >
+                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+              </svg>
+            </a>
+          </Button>
+        )}
+      </article>
+    </main>
   );
 }
