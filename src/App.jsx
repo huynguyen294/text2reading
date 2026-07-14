@@ -132,7 +132,7 @@ export default function App() {
   };
 
   return (
-    <main className="h-[100dvh] w-fit container mx-auto max-w-7xl p-2 sm:p-6 mt-6">
+    <main className="h-[100dvh] w-fit container mx-auto max-w-7xl p-2 sm:p-6 mt-10">
       <Toaster />
       <article>
         {data.content.map((line, index) =>
