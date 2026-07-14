@@ -5,6 +5,7 @@ import useAppStore from "./store/app";
 import { toast } from "sonner";
 import { Toaster } from "./components/ui/sonner";
 import { Button } from "./components/ui/button";
+import { BookOpenText } from "lucide-react";
 
 export default function App() {
   const [data, setData] = useState(null);
@@ -132,9 +133,12 @@ export default function App() {
   };
 
   return (
-    <main className="h-[100dvh] w-fit container mx-auto max-w-7xl p-2 sm:p-6 mt-16">
+    <main className="h-[100dvh] w-fit container mx-auto max-w-7xl p-2 sm:p-6">
       <Toaster />
       <article lang="vi" role="article" aria-live="polite" aria-relevant="all">
+        <div className="w-full flex justify-center my-10">
+          <BookOpenText size={60} className="text-muted-foreground" />
+        </div>
         {data.content.map((line, index) =>
           !line ? <br key={index} /> : <ToggleableLine key={index} index={index} line={line} />,
         )}
