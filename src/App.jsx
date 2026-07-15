@@ -20,7 +20,7 @@ import { Form, useForm } from "react-simple-formkit";
 import { Input } from "./components/ui/input";
 
 const TOP_OFFSET_LINES = 30;
-const BOTTOM_OFFSET_LINES = 770;
+const BOTTOM_OFFSET_LINES = 1200;
 
 export default function App() {
   const [data, setData] = useState(null);
