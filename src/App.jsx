@@ -104,7 +104,7 @@ export default function App() {
                 }}
               >
                 <Input name="name" placeholder="File Name" />
-                <Textarea name="content" className="h-full w-full" placeholder="Enter text content" />
+                <Textarea name="content" className="h-[calc(100%-32px)] w-full" placeholder="Enter text content" />
               </Form>
             </div>
             <DialogFooter>
