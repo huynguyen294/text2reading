@@ -100,38 +100,40 @@ export default function App() {
         onMouseLeave={() => setShowButton(false)}
       >
         {line}
-        <button
-          className={`absolute left-0 top-0 -translate-y-[100%] opacity-0 transition-opacity text-sm px-2 py-1 rounded text-black/70 bg-gray-200 cursor-pointer ${showButton && "opacity-100"}`}
-          onClick={(e) => {
-            e.stopPropagation();
-            setShowButton(!showButton);
-            updateFile({ name: data.name, bookmark: index });
-            toast("Bookmarked!", {
-              position: "top-center",
-              description: "",
-              action: {
-                label: "Undo",
-                onClick: () => {
-                  updateFile({ name: data.name, bookmark: 0 });
+        {showButton && (
+          <button
+            className={`absolute left-0 top-0 -translate-y-[100%] transition-opacity text-sm px-2 py-1 rounded text-black/70 bg-gray-200 cursor-pointer`}
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowButton(!showButton);
+              updateFile({ name: data.name, bookmark: index });
+              toast("Bookmarked!", {
+                position: "top-center",
+                description: "",
+                action: {
+                  label: "Undo",
+                  onClick: () => {
+                    updateFile({ name: data.name, bookmark: 0 });
+                  },
                 },
-              },
-            });
-          }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+              });
+            }}
           >
-            <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+            </svg>
+          </button>
+        )}
       </p>
     );
   };
