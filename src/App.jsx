@@ -19,8 +19,8 @@ import { Textarea } from "./components/ui/textarea";
 import { Form, useForm } from "react-simple-formkit";
 import { Input } from "./components/ui/input";
 
-const TOP_OFFSET_LINES = 100;
-const BOTTOM_OFFSET_LINES = 3000;
+const TOP_OFFSET_LINES = 30;
+const BOTTOM_OFFSET_LINES = 770;
 
 export default function App() {
   const [data, setData] = useState(null);
