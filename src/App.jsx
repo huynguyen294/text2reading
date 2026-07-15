@@ -53,8 +53,6 @@ export default function App() {
     multiple: false,
   });
 
-  console.log(data.content);
-
   useEffect(() => {
     const found = files.find((f) => f.name === data?.name);
     if (found) {
