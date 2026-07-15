@@ -5,7 +5,19 @@ import useAppStore from "./store/app";
 import { toast } from "sonner";
 import { Toaster } from "./components/ui/sonner";
 import { Button } from "./components/ui/button";
-import { Bookmark, BookOpenText, SplitSquareVertical } from "lucide-react";
+import { Bookmark, BookOpenText, Plus, SplitSquareVertical } from "lucide-react";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./components/ui/dialog";
+import { Textarea } from "./components/ui/textarea";
+import { Form, useForm } from "react-simple-formkit";
+import { Input } from "./components/ui/input";
 
 const TOP_OFFSET_LINES = 100;
 const BOTTOM_OFFSET_LINES = 3000;
@@ -14,6 +26,7 @@ export default function App() {
   const [data, setData] = useState(null);
   const [splitting, setSplitting] = useState(true);
   const { files, addFile, updateFile } = useAppStore();
+  const { control } = useForm();
 
   const onDrop = (acceptedFiles) => {
     if (acceptedFiles.length > 0) {
@@ -63,6 +76,49 @@ export default function App() {
   if (!data)
     return (
       <main className="bg-gray-400 h-[100dvh] w-[100dvw] flex items-center justify-center p-2 sm:p-6 select-none">
+        <Dialog>
+          <DialogTrigger>
+            <Button
+              variant="default"
+              size="lg"
+              className="rounded-lg fixed bottom-8 right-8 sm:bottom-12 sm:right-12 size-12 [&_svg]:size-6 z-10"
+            >
+              <Plus className="size-6" />
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="flex flex-col h-[100dvh] max-w-[100dvw]! w-[100dvw] rounded-none">
+            <DialogHeader>
+              <DialogTitle>Create new text file</DialogTitle>
+            </DialogHeader>
+            <div className="flex-1">
+              <Form
+                className="h-full space-y-2"
+                control={control}
+                id="form"
+                onSubmit={({ content, name }) => {
+                  const blob = new Blob([content], { type: "application/octet-stream" });
+                  const a = document.createElement("a");
+                  a.href = URL.createObjectURL(blob);
+                  a.download = name || "text2reading";
+                  a.click();
+                }}
+              >
+                <Input name="name" placeholder="File Name" />
+                <Textarea name="content" className="h-full w-full" placeholder="Enter text content" />
+              </Form>
+            </div>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button size="lg" variant="outline">
+                  Close
+                </Button>
+              </DialogClose>
+              <Button type="submit" form="form" size="lg">
+                Export
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
         <div
           {...getRootProps()}
           className={`w-full h-full border-4 border-dashed rounded-3xl flex flex-col justify-center items-center text-center cursor-pointer transition-all duration-300 relative
