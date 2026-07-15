@@ -5,10 +5,14 @@ import useAppStore from "./store/app";
 import { toast } from "sonner";
 import { Toaster } from "./components/ui/sonner";
 import { Button } from "./components/ui/button";
-import { BookOpenText } from "lucide-react";
+import { Bookmark, BookOpenText, SplitSquareVertical } from "lucide-react";
+
+const TOP_OFFSET_LINES = 100;
+const BOTTOM_OFFSET_LINES = 3000;
 
 export default function App() {
   const [data, setData] = useState(null);
+  const [splitting, setSplitting] = useState(true);
   const { files, addFile, updateFile } = useAppStore();
 
   const onDrop = (acceptedFiles) => {
@@ -48,6 +52,8 @@ export default function App() {
     onDrop,
     multiple: false,
   });
+
+  console.log(data.content);
 
   useEffect(() => {
     const found = files.find((f) => f.name === data?.name);
@@ -139,29 +145,32 @@ export default function App() {
         <div className="w-full flex justify-center my-10">
           <BookOpenText size={60} className="text-muted-foreground" />
         </div>
-        {data.content.map((line, index) =>
-          !line ? <br key={index} /> : <ToggleableLine key={index} index={index} line={line} />,
-        )}
+        {data.content.map((line, index) => {
+          if (
+            splitting &&
+            data.bookmark &&
+            (index < data.bookmark - TOP_OFFSET_LINES || index > data.bookmark + BOTTOM_OFFSET_LINES)
+          ) {
+            return null;
+          }
+
+          return !line ? <br key={index} /> : <ToggleableLine key={index} index={index} line={line} />;
+        })}
         {data.bookmark && (
-          <Button size="lg" className="fixed bottom-8 right-8 size-12 [&_svg]:size-7" asChild>
+          <Button size="lg" className="fixed bottom-8 right-21 size-12 [&_svg]:size-6" asChild>
             <a href={`#line-${data.bookmark}`}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="size-7"
-              >
-                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-              </svg>
+              <Bookmark className="size-6" />
             </a>
           </Button>
         )}
+        <Button
+          variant={splitting ? "default" : "outline"}
+          size="lg"
+          className="fixed bottom-8 right-8 size-12 [&_svg]:size-6"
+          onClick={() => setSplitting(!splitting)}
+        >
+          <SplitSquareVertical className="size-6" />
+        </Button>
       </article>
     </main>
   );
