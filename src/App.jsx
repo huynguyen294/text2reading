@@ -144,11 +144,8 @@ export default function App() {
           <BookOpenText size={60} className="text-muted-foreground" />
         </div>
         {data.content.map((line, index) => {
-          if (
-            splitting &&
-            data.bookmark &&
-            (index < data.bookmark - TOP_OFFSET_LINES || index > data.bookmark + BOTTOM_OFFSET_LINES)
-          ) {
+          const bookmark = data.bookmark || 0;
+          if (splitting && (index < bookmark - TOP_OFFSET_LINES || index > bookmark + BOTTOM_OFFSET_LINES)) {
             return null;
           }
 
