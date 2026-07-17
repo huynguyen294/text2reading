@@ -213,7 +213,7 @@ export default function App() {
 
           return !line ? <br key={index} /> : <ToggleableLine key={index} index={index} line={line} />;
         })}
-        {data.bookmark && (
+        {Boolean(data.bookmark) && (
           <Button size="lg" className="fixed bottom-8 right-21 size-12 [&_svg]:size-6" asChild>
             <a href={`#line-${data.bookmark}`}>
               <Bookmark className="size-6" />
